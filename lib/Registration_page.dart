@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/Login_page.dart';
+import 'package:todo/Providers/Provider_auth.dart';
 
 
 class RegistrationPage extends StatelessWidget {
@@ -8,6 +10,7 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final regProvider = context.read<ProviderAuth>();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -38,7 +41,9 @@ class RegistrationPage extends StatelessWidget {
                 ),
                 SizedBox(height:screenHeight*0.008,),
                 TextField(
+                  controller:regProvider.name,
                   decoration: InputDecoration(
+                    errorText: regProvider.nameError,
                    // labelText: 'Username',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15)
@@ -55,7 +60,9 @@ class RegistrationPage extends StatelessWidget {
                 ),
                 SizedBox(height:screenHeight*0.008,),
                 TextField(
+                  controller: regProvider.email,
                   decoration: InputDecoration(
+                    errorText: regProvider.emailError,
                     //labelText: 'email',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15)
@@ -71,16 +78,39 @@ class RegistrationPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height:screenHeight*0.008,),
-                const PasswordField(),
+                Consumer<ProviderAuth>(
+                  builder: (context, regProvider, child) {
+                    return PasswordField(
+                      isObscure: !regProvider.isPasswordVisible,
+                      onChanged: regProvider.setPassword,
+                      onToggle: regProvider.togglePasswordVisibility,
+                      ErrorText: regProvider.passwordError,
+                    );
+                  },
+                ),
+
                 SizedBox(height:screenHeight*0.08,),
                 SizedBox(
                   height:screenHeight*0.052,
                   width:screenWidth*0.0349,
                   child: ElevatedButton(onPressed: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>LoginPage()),
-                    );
+                    final isValid= regProvider.validateForm();
+                    if(isValid){
+                      regProvider.registration();
+                      regProvider.clearFields();
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>LoginPage()),
+                      );
+
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Fill all the fields'),
+                        ),
+                      );
+                    }
 
                   },
                       style: ElevatedButton.styleFrom(
@@ -93,13 +123,13 @@ class RegistrationPage extends StatelessWidget {
                 ),
                 SizedBox(height:screenHeight*0.020,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [Text( 'Already a user?',
                       style: TextStyle(color: Colors.black,fontSize: 15,fontWeight:FontWeight.normal)),
                     TextButton(onPressed:(){
-                      // Navigator.push(
-                      //   context, MaterialPageRoute(builder: (context) =>LoginPage())
-                      // );
+                      Navigator.push(
+                        context, MaterialPageRoute(builder: (context) =>LoginPage())
+                      );
                     } , child:Text('Sign In',
                     style: TextStyle(color: Colors.blue,fontSize: 15,fontWeight: FontWeight.normal )))
                   ]
@@ -117,13 +147,13 @@ class RegistrationPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(onPressed: (){}, icon: Icon(Icons.facebook,color: Colors.blue,size: 51,),
+                    IconButton(onPressed:(){ context.read<ProviderAuth>().openFacebook();}, icon: Icon(Icons.facebook,color: Colors.blue,size: 51,),
                     ),
                     IconButton(
                       icon: Image.asset('assets/images/instagramlogo.png',height: 43,width: 43,),
-                      onPressed: () {},
+                      onPressed: () {context.read<ProviderAuth>().openInstagram();},
                     ),
-                    IconButton(onPressed: (){},
+                    IconButton(onPressed: (){context.read<ProviderAuth>().openTwitter();},
                         icon:Image.asset('assets/images/twitterlogo.png',height:43 ,width: 43,)
                     )
                   ],
@@ -142,37 +172,41 @@ class RegistrationPage extends StatelessWidget {
 
 //password field input box with boarder//
 
-class PasswordField extends StatefulWidget {
-  const PasswordField({super.key});
+class PasswordField extends StatelessWidget {
+  final bool isObscure;
+  final VoidCallback onToggle;
+  final ValueChanged<String> onChanged;
+  final String ? ErrorText;
 
-  @override
-  State<PasswordField> createState() => _PasswordFieldState();
-}
-
-class _PasswordFieldState extends State<PasswordField> {
-  bool _isObscure = true;
+  const PasswordField({
+    super.key,
+    required this.isObscure,
+    required this.onToggle,
+    required this.onChanged,
+    this.ErrorText,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      obscureText: _isObscure,
+      obscureText: isObscure,
+      onChanged: onChanged,
       decoration: InputDecoration(
-        //labelText: 'Password',
+        errorText: ErrorText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
         ),
         suffixIcon: IconButton(
-          icon: Icon(_isObscure ? Icons.visibility_off : Icons.visibility),
-          onPressed: () {
-            setState(() {
-              _isObscure = !_isObscure;
-            });
-          },
+          icon: Icon(
+            isObscure ? Icons.visibility_off : Icons.visibility,
+          ),
+          onPressed: onToggle,
         ),
       ),
     );
   }
 }
+
 
 //*************************************end**********************************************//
 

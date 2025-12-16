@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/Providers/Provider_auth.dart';
 import 'package:todo/Welcome_page.dart';
-import 'package:todo/Registration_page.dart';
-import 'package:todo/Login_page.dart';
-
-import 'Settings_page.dart';
 
 void main(){
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+   ChangeNotifierProvider(create: (_)=>ProviderAuth())
+
+  ],
+  child: const MyApp(),
+  ));
+
 }
 
 class MyApp extends StatelessWidget {

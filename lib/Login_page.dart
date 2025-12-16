@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/Home_Page.dart';
+import 'package:todo/Providers/Provider_auth.dart';
 import 'package:todo/Registration_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -8,6 +10,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final logprovider = context.read<ProviderAuth>();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -37,7 +40,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(height:screenHeight*0.008,),
                 TextField(
+                  controller: logprovider.inputEmail,
                   decoration: InputDecoration(
+                    errorText: logprovider.inEmailError,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15)
                     ),
@@ -55,7 +60,17 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height:screenHeight*0.008,),
-                PasswordField(),
+                Consumer<ProviderAuth>(
+                    builder: (context, logProvider, child) {
+                      return PasswordField(
+                        isObscure: !logProvider.isPasswordVisible,
+                        onToggle: logProvider.togglePasswordVisibility,
+                        onChanged: logProvider.setInPassword,
+                        ErrorText: logProvider.inPasswordError,
+                      );
+                    }
+
+                ),
                 SizedBox(height:screenHeight*0.032,),
                 TextButton(onPressed: (){},
                     child:Text ('Forgot Password?',textAlign: TextAlign.center,
@@ -66,8 +81,20 @@ class LoginPage extends StatelessWidget {
                   height:screenHeight*0.052 ,
                   width:screenWidth*0.0349 ,
                   child: ElevatedButton(onPressed:(){
-                   Navigator.push(context,
-                   MaterialPageRoute(builder: (context)=>HomePage()));
+                    final isValid = logprovider.validateLoginForm();
+                    if (isValid) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Fill all the fields'),
+                        ),
+                      );
+                   }
+
                   } ,
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent
@@ -76,7 +103,7 @@ class LoginPage extends StatelessWidget {
                         style: TextStyle(fontSize:20,fontWeight: FontWeight.bold,color: Colors.white ),)),
                 ),
                 SizedBox(height:screenHeight*0.013,),
-                Row(mainAxisAlignment: MainAxisAlignment.end,
+                Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('Dont have an account?',
                       style: TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.normal),
