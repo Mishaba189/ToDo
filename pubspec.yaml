@@ -68,6 +68,7 @@ flutter:
     - assets/images/ToDo1.png
     - assets/images/instagramlogo.png
     - assets/images/twitterlogo.png
+    - assets/images/google.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

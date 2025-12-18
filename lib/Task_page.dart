@@ -50,7 +50,7 @@ class TaskPage extends StatelessWidget {
             ),
             SizedBox(height:screenHeight*0.02),
             Text('Category',textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.blue),),
+              style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.black),),
             SizedBox(height:screenHeight*0.015),
             TextField(
               decoration:InputDecoration(
@@ -64,52 +64,70 @@ class TaskPage extends StatelessWidget {
                 filled: true,
                 fillColor: Color(0x1A2196F3),
                 hintText: 'Work',
-                suffixIcon: Icon(Icons.keyboard_arrow_down_rounded,size:30,color:Color(0xFF858484) ,)
+                suffixIcon: Icon(Icons.keyboard_arrow_down_rounded,size:30,color:Color(0xFF605E5E) ,)
               ),
             ),
             SizedBox(height:screenHeight*0.02),
             Text('Date',textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.blue),),
+              style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.black),),
             SizedBox(height:screenHeight*0.015),
             Column(
               children: [
-                Row(
-                  mainAxisAlignment:MainAxisAlignment.start,
-                  children: [
-                    Icon(Icons.calendar_month_outlined,size: 30,color: Colors.orange,),
-                    SizedBox(width: screenWidth*0.03,),
-                    Text('Set due date',style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,color:Color(0xFF858484)),
-                    )
-                  ],
+                InkWell(
+                  child: SizedBox(
+                    height: screenHeight*0.04,
+                    child: Row(
+                      mainAxisAlignment:MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.calendar_month_outlined,size: 24,color: Colors.blue,),
+                        SizedBox(width: screenWidth*0.03,),
+                        Text('Set due date',style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color:Color(0xFF605E5E)),
+                        )
+                      ],
+                    ),
+                  ),
+                  onTap: (){},
                 ),
-                SizedBox(height:screenHeight*0.02),
-                Row(
-                  mainAxisAlignment:MainAxisAlignment.start,
-                  children: [
-                    Icon(Icons.watch_later_outlined,size: 30,color: Colors.red,),
-                    SizedBox(width: screenWidth*0.03,),
-                    Text('Set Time',style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,color:Color(0xFF858484)),
-                    )
-                  ],
+                SizedBox(height:screenHeight*0.01),
+                InkWell(
+                  child: SizedBox(
+                    height: screenHeight*0.04,
+                    child: Row(
+                      mainAxisAlignment:MainAxisAlignment.start,
+                      children: [
+                        Icon(Icons.watch_later_outlined,size: 24,color: Colors.blue,),
+                        SizedBox(width: screenWidth*0.03,),
+                        Text('Set Time',style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color:Color(0xFF605E5E)),
+                        )
+                      ],
+                    ),
+                  ),
+                  onTap: (){},
                 ),
               ],
             ),
             SizedBox(height:screenHeight*0.02),
             Text('Reminder',textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.blue),),
+              style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.black),),
             SizedBox(height:screenHeight*0.015),
-            Row(
-              mainAxisAlignment:MainAxisAlignment.start,
-              children: [
-                Icon(Icons.notifications_none,size: 30,color: Colors.red,),
-                SizedBox(width: screenWidth*0.03,),
-                Text('Set Reminder',style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,color:Color(0xFF858484)),
-                )
-              ],
+            InkWell(
+              child: SizedBox(
+                height: screenHeight*0.04,
+                child: Row(
+                  mainAxisAlignment:MainAxisAlignment.start,
+                  children: [
+                    Icon(Icons.notifications_none,size: 24,color: Colors.blue,),
+                    SizedBox(width: screenWidth*0.03,),
+                    Text('Set Reminder',style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal,color:Color(0xFF605E5E)),
+                    )
+                  ],
+                ),
+              ),
+              onTap: (){},
             ),
             SizedBox(height:screenHeight*0.02),
             Text('Notes',textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.blue),),
+              style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500,color: Colors.black),),
             SizedBox(height:screenHeight*0.015),
             Container(
               height:180,
