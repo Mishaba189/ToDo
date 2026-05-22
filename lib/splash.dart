@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:todo/Registration_page.dart';
+import 'package:todo/registration%20&%20login/Registration_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column( mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height:screenHeight*0.15,),
+            SizedBox(height:h*0.15,),
              Image(image:AssetImage('assets/images/ToDo1.png'),height: 291,width: 291),
-             SizedBox(height:screenHeight*0.09),
+             SizedBox(height:h*0.09),
              Padding(padding: EdgeInsets.symmetric(horizontal: 36),
              child: Column(
                mainAxisAlignment: MainAxisAlignment.center,
@@ -36,12 +35,12 @@ class WelcomePage extends StatelessWidget {
                        ]
                    ),
                  ),
-                 SizedBox(height:screenHeight*0.02,),
+                 SizedBox(height:h*0.02,),
                  Padding(padding: EdgeInsets.symmetric(horizontal: 30),
                    child: Text('Take control of your tasks and achieve your goals.', textAlign: TextAlign.center,
                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,color: Colors.black),),
                  ),
-                 SizedBox(height:screenHeight*0.11,),
+                 SizedBox(height:h*0.11,),
                  ElevatedButton(onPressed: (){
                    Navigator.push(
                      context,
@@ -66,4 +65,3 @@ class WelcomePage extends StatelessWidget {
   }
 }
 
-//*************************************end**********************************************//

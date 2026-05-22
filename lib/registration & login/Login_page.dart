@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/Home_Page.dart';
+import 'package:todo/screens/Home_Page.dart';
 import 'package:todo/Providers/Provider_auth.dart';
-import 'package:todo/Registration_page.dart';
-import 'package:todo/Reset_password.dart';
+import 'package:todo/registration%20&%20login/Registration_page.dart';
+import 'package:todo/registration%20&%20login/Reset_password.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -84,21 +84,10 @@ class LoginPage extends StatelessWidget {
                 height:screenHeight*0.052 ,
                 width:screenWidth*0.0349 ,
                 child: ElevatedButton(onPressed:(){
-                  final isValid = context.read<ProviderAuth>().login();
-                  if (isValid) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                    logprovider.clearFields();
-                  } else {
-                    final p = context.read<ProviderAuth>();
-                    if(p.inEmailError== 'User not found' || p.inPasswordError == 'Incorrect password'){
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Invalid credentials')),
-                      );
-                    }
-                 }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
                 } ,
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent

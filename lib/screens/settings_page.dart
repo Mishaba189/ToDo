@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo/Home_Page.dart';
-import 'package:todo/Login_page.dart';
-import 'Bottom_menu_bar.dart';
+import 'package:todo/screens/Home_Page.dart';
+import 'package:todo/registration%20&%20login/Login_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -152,7 +151,7 @@ class SettingsPage extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: Bottomnavbar(selectedIndex: 3),
+      bottomNavigationBar: BottomMenuBar(selectedIndex: 3),
     );
   }
 }

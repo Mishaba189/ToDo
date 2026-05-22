@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo/Calendar_page.dart';
-import 'package:todo/File_page.dart';
-import 'package:todo/Home_Page.dart';
+import 'package:todo/screens/Home_Page.dart';
 
-import 'Bottom_menu_bar.dart';
-
-// import 'Bottom_menu_bar.dart';
 class TaskPage extends StatelessWidget {
   const TaskPage({super.key});
 
@@ -174,7 +169,6 @@ class TaskPage extends StatelessWidget {
         ) ,
         )
       ),
-      bottomNavigationBar: Bottomnavbar(selectedIndex: 0),
 
     );
   }

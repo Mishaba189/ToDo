@@ -15,7 +15,6 @@ class ProviderAuth extends ChangeNotifier{
   String ? passwordError;
   String ? inEmailError;
   String ? inPasswordError;
-  //
   String ? registeredEmail;
   String ? registeredPassword;
   //states
