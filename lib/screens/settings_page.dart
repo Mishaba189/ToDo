@@ -1,157 +1,336 @@
 import 'package:flutter/material.dart';
 import 'package:todo/screens/Home_Page.dart';
-import 'package:todo/registration%20&%20login/Login_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
 
-    List<Map<String, dynamic>> tasks = [
-
-      {
-        'title': 'Change Password',
-        'leading': Icons.lock,
-        
-      },
-      {
-        'title': 'Notification',
-        'leading': Icons.notifications_none,
-        'pages' : HomePage()
-      },
-      {
-        'title': 'Logout',
-        'leading': Icons.logout,
-        'pages' : LoginPage()
-      },
-    ];
+    final h = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Settings',
-          style: TextStyle(
-              color: Colors.blue,
-              fontSize: 24,
-              fontWeight: FontWeight.bold
-          ),
-        ),
-        automaticallyImplyLeading: true,
-      ),
+      backgroundColor: const Color(0xFFF5F7FB),
+      bottomNavigationBar:
+      const BottomMenuBar(selectedIndex: 3),
 
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: width * 0.0666,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 18,
+            vertical: 14,
           ),
+
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
+
             children: [
-              Column(
+
+              Row(
+                mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
+
                 children: [
-                  Container(
-                    height: height * 0.12,
-                    margin: EdgeInsets.all(width * 0.0102),
-                    decoration: BoxDecoration(
-                      color: const Color(0x152196F3),
-                      borderRadius:
-                      BorderRadius.circular(width * 0.0307),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.account_circle,
-                              color: Colors.blue,
-                              size: width * 0.2,
-                            ),
-                            SizedBox(width: width * 0.0256),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text('Ellie', style: TextStyle(fontSize: 20)),
-                                Text('ellie123@gmail.com', style: TextStyle(fontSize: 14)),
-                              ],
-                            ),
-                          ],
+
+                  Column(
+                    crossAxisAlignment:
+                    CrossAxisAlignment.start,
+
+                    children: const [
+
+                      Text(
+                        "Settings",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight:
+                          FontWeight.bold,
                         ),
-                        // SizedBox(width: width*0.06,),
-                        IconButton(onPressed: (){},
-                            icon: Icon(
-                              Icons.edit,
-                              color: Colors.blue,
-                              size: width * 0.05,
-                            ),)
-                      ],
+                      ),
+
+                      SizedBox(height: 4),
+
+                      Text(
+                        "Manage your account & app",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Container(
+                    height: 56,
+                    width: 56,
+
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                      BorderRadius.circular(
+                          18),
+                    ),
+
+                    child: const Icon(
+                      Icons.settings_rounded,
+                      size: 28,
+                      color: Color(0xFF4A90E2),
                     ),
                   ),
                 ],
               ),
 
-              SizedBox(height: height * 0.0118),
-              Text(
-                'Customize',
-                style: TextStyle(
-                  fontSize: height * 0.02,
-                  fontWeight: FontWeight.w500,
+              SizedBox(height: h * 0.03),
+
+              Container(
+                padding: const EdgeInsets.all(20),
+
+                decoration: BoxDecoration(
+                  borderRadius:
+                  BorderRadius.circular(28),
+
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xFF4A90E2),
+                      Color(0xFF67B0FF),
+                    ],
+                  ),
+                ),
+
+                child: Row(
+                  children: [
+
+
+                    Container(
+                      height: 70,
+                      width: 70,
+
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        BorderRadius.circular(
+                            20),
+                      ),
+
+                      child: const Icon(
+                        Icons.person_rounded,
+                        size: 40,
+                        color: Color(0xFF4A90E2),
+                      ),
+                    ),
+
+                    const SizedBox(width: 18),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment:
+                        CrossAxisAlignment
+                            .start,
+
+                        children: const [
+
+                          Text(
+                            "Mishaba",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight:
+                              FontWeight.bold,
+                            ),
+                          ),
+
+                          SizedBox(height: 6),
+
+                          Text(
+                            "mishaba@gmail.com",
+                            style: TextStyle(
+                              color:
+                              Colors.white70,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const Icon(
+                      Icons.edit_rounded,
+                      color: Colors.white,
+                    ),
+                  ],
                 ),
               ),
 
-              SizedBox(height: height * 0.0118),
+              SizedBox(height: h * 0.035),
 
-              ListView.builder(
-                itemCount: tasks.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final task = tasks[index];
-                  return Padding(
-                    padding: EdgeInsets.only(
-                      bottom: height * 0.0189,
-                    ),
-                    child: Container(
-                      height: height * 0.05,
-                      decoration: BoxDecoration(
-                        color: const Color(0x152196F3),
-                        borderRadius:
-                        BorderRadius.circular(width * 0.0205),
-                      ),
-                      child: ListTile(
-                        leading: Icon(
-                          task['leading'],
-                          color: Colors.blue,
-                          size: width * 0.05,
-                        ),
-                        title: Text(
-                          task['title'],
-                          style: TextStyle(
-                            fontSize: height * 0.018,
-                          ),
-                        ),
-                        onTap: (){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) =>task['pages']),
-                          );
-                        },
-                      ),
-                    ),
-                  );
-                },
+
+              const Text(
+                "General",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+
+              SizedBox(height: h * 0.018),
+
+
+              settingTile(
+                icon: Icons.person_outline_rounded,
+                title: "Account",
+                subtitle: "Manage your profile",
+              ),
+
+              settingTile(
+                icon: Icons.notifications_none_rounded,
+                title: "Notifications",
+                subtitle: "Task reminders & alerts",
+              ),
+
+              settingTile(
+                icon: Icons.lock_outline_rounded,
+                title: "Privacy",
+                subtitle: "Password & security",
+              ),
+
+              settingTile(
+                icon: Icons.color_lens_outlined,
+                title: "Appearance",
+                subtitle: "Theme & display",
+              ),
+
+              SizedBox(height: h * 0.03),
+
+              /// SUPPORT
+              const Text(
+                "Support",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              SizedBox(height: h * 0.018),
+
+              settingTile(
+                icon: Icons.help_outline_rounded,
+                title: "Help Center",
+                subtitle: "FAQs and support",
+              ),
+
+              settingTile(
+                icon: Icons.info_outline_rounded,
+                title: "About App",
+                subtitle: "Version 1.0.0",
+              ),
+
+              SizedBox(height: h * 0.035),
+
+              SizedBox(
+                width: double.infinity,
+
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:Color(0xFF4A90E2),
+                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                  ),
+
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.logout_rounded, color: Colors.white,),
+                      SizedBox(width: 10),
+                      Text(
+                        "Logout",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight:
+                          FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: h * 0.12),
             ],
           ),
         ),
       ),
+    );
+  }
 
-      bottomNavigationBar: BottomMenuBar(selectedIndex: 3),
+  Widget settingTile({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+  }) {
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 14),
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(22),
+          boxShadow: [
+            BoxShadow(
+              color:
+              Colors.black.withOpacity(0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+
+        child: Row(
+          children: [
+            Container(
+              height: 52,
+              width: 52,
+              decoration: BoxDecoration(
+                color: const Color(0xFFEAF3FF),
+                borderRadius: BorderRadius.circular(16),
+              ),
+
+              child: Icon(icon, color: const Color(0xFF4A90E2),),),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 18,
+              color: Colors.grey,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

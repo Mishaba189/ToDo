@@ -47,7 +47,6 @@ class CalendarPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              /// HEADER
               Row(
                 mainAxisAlignment:
                 MainAxisAlignment.spaceBetween,
@@ -158,7 +157,6 @@ class CalendarPage extends StatelessWidget {
 
               SizedBox(height: h * 0.03),
 
-              /// TASK HEADER
               Row(
                 mainAxisAlignment:
                 MainAxisAlignment.spaceBetween,
