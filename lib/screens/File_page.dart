@@ -52,7 +52,6 @@ class FilePage extends StatelessWidget {
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
-      bottomNavigationBar: const BottomMenuBar(selectedIndex: 2),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(

@@ -5,8 +5,8 @@
 import FlutterMacOS
 import Foundation
 
-import url_launcher_macos
+import firebase_core
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
-  UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
+  FLTFirebaseCorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseCorePlugin"))
 }

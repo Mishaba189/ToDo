@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo/registration%20&%20login/Registration_page.dart';
+import 'package:todo/screens/login/authentication.dart';
+
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -44,7 +45,7 @@ class WelcomePage extends StatelessWidget {
                  ElevatedButton(onPressed: (){
                    Navigator.push(
                      context,
-                     MaterialPageRoute(builder: (context) => RegistrationPage()),
+                     MaterialPageRoute(builder: (context) => Authentication()),
                    );
 
                  },

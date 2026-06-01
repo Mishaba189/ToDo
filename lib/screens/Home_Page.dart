@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo/screens/Task_page.dart';
+import 'package:todo/screens/notification_page.dart';
 
 import 'Calendar_page.dart';
 import 'File_page.dart';
@@ -71,7 +72,6 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: const BottomMenuBar(selectedIndex: 0),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -86,7 +86,7 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
-                        "Hello 👋",
+                        "Hello Mishaba 👋",
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
@@ -102,16 +102,21 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    height: 52,
-                    width: 52,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: const Icon(
-                      Icons.notifications_none_rounded,
-                      size: 28,
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => NotificationPage()));
+                    },
+                    child: Container(
+                      height: 52,
+                      width: 52,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const Icon(
+                        Icons.notifications_none_rounded,
+                        size: 28,
+                      ),
                     ),
                   ),
                 ],
@@ -135,10 +140,7 @@ class HomePage extends StatelessWidget {
                     contentPadding: const EdgeInsets.symmetric(vertical: 18),
                     hintText: "Search tasks...",
                     hintStyle: TextStyle(color: Colors.grey.shade500,),
-                    prefixIcon: const Icon(
-                      Icons.search_rounded,
-                      size: 28,
-                    ),
+                    prefixIcon: const Icon(Icons.search_rounded, size: 28,),
                   ),
                 ),
               ),
@@ -422,99 +424,6 @@ class _CheckBoxState extends State<CheckBox> {
           color: Colors.white,
           size: 18,
         ) : null,
-      ),
-    );
-  }
-}
-
-
-class BottomMenuBar extends StatefulWidget {
-  final int selectedIndex;
-  const BottomMenuBar({
-    super.key,
-    this.selectedIndex = 0,
-  });
-  @override
-  State<BottomMenuBar> createState() => _BottomMenuBarState();
-}
-class _BottomMenuBarState extends State<BottomMenuBar> {
-  late int _selectedIndex;
-  @override
-  void initState() {
-    super.initState();
-    _selectedIndex = widget.selectedIndex;
-  }
-  void _onItemTapped(int index) {
-    if (index == _selectedIndex) return;
-    setState(() {
-      _selectedIndex = index;
-    });
-    Widget page;switch (index) {
-      case 0:
-        page = const HomePage();
-        break;
-      case 1:
-        page = CalendarPage();
-        break;
-      case 2:
-        page = FilePage();
-        break;
-      case 3:
-        page = const SettingsPage();
-        break;
-      default:
-        return;
-    }
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => page),);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 82,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(28),
-          topRight: Radius.circular(28),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 15,
-            offset: const Offset(0, -3),
-          ),
-        ],
-      ),
-
-      child: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        selectedItemColor: const Color(0xFF4A90E2),
-        unselectedItemColor: Colors.grey.shade500,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded,size: 35,),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month_rounded,size: 30,),
-            label: "Calendar",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.insert_drive_file_outlined,size: 30,),
-            label: "Files",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_rounded,size: 30,),
-            label: "Settings",
-          ),
-        ],
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo/screens/Home_Page.dart';
+
+import 'login/authentication.dart';
+
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -8,7 +10,6 @@ class SettingsPage extends StatelessWidget {
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
-      bottomNavigationBar: const BottomMenuBar(selectedIndex: 3),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
@@ -163,7 +164,9 @@ class SettingsPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) =>  Authentication()));
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor:Color(0xFF4A90E2),
                     padding: const EdgeInsets.symmetric(vertical: 18),

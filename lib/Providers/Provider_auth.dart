@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AuthProvider extends ChangeNotifier{
+  bool isLogin = true;
 
   bool isPasswordVisible= false;
   void togglePasswordVisibility(){
@@ -9,9 +9,10 @@ class AuthProvider extends ChangeNotifier{
     notifyListeners();
   }
 
-
-
-
+  void toggleAuthMode() {
+    isLogin = !isLogin;
+    notifyListeners();
+  }
 
 
 
