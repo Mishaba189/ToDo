@@ -5,7 +5,7 @@ import 'package:todo/splash.dart';
 
 void main(){
   runApp(MultiProvider(providers: [
-   ChangeNotifierProvider(create: (_)=>ProviderAuth())
+   ChangeNotifierProvider(create: (_)=>AuthProvider())
 
   ],
   child: const MyApp(),

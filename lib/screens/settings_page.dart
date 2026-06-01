@@ -3,42 +3,27 @@ import 'package:todo/screens/Home_Page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
-
   @override
   Widget build(BuildContext context) {
-
     final h = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
-      bottomNavigationBar:
-      const BottomMenuBar(selectedIndex: 3),
-
+      bottomNavigationBar: const BottomMenuBar(selectedIndex: 3),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
             horizontal: 18,
             vertical: 14,
           ),
-
           child: Column(
-            crossAxisAlignment:
-            CrossAxisAlignment.start,
-
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
-
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
-
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-
                       Text(
                         "Settings",
                         style: TextStyle(
@@ -47,9 +32,7 @@ class SettingsPage extends StatelessWidget {
                           FontWeight.bold,
                         ),
                       ),
-
                       SizedBox(height: 4),
-
                       Text(
                         "Manage your account & app",
                         style: TextStyle(
@@ -59,18 +42,12 @@ class SettingsPage extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   Container(
                     height: 56,
                     width: 56,
-
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius:
-                      BorderRadius.circular(
-                          18),
-                    ),
-
+                      borderRadius: BorderRadius.circular(18),),
                     child: const Icon(
                       Icons.settings_rounded,
                       size: 28,
@@ -79,16 +56,11 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ],
               ),
-
               SizedBox(height: h * 0.03),
-
               Container(
                 padding: const EdgeInsets.all(20),
-
                 decoration: BoxDecoration(
-                  borderRadius:
-                  BorderRadius.circular(28),
-
+                  borderRadius: BorderRadius.circular(28),
                   gradient: const LinearGradient(
                     colors: [
                       Color(0xFF4A90E2),
@@ -96,74 +68,50 @@ class SettingsPage extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 child: Row(
                   children: [
-
-
                     Container(
                       height: 70,
                       width: 70,
-
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius:
-                        BorderRadius.circular(
-                            20),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-
                       child: const Icon(
                         Icons.person_rounded,
                         size: 40,
                         color: Color(0xFF4A90E2),
                       ),
                     ),
-
                     const SizedBox(width: 18),
-
                     Expanded(
                       child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment
-                            .start,
-
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-
                           Text(
                             "Mishaba",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 22,
-                              fontWeight:
-                              FontWeight.bold,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-
                           SizedBox(height: 6),
-
                           Text(
                             "mishaba@gmail.com",
                             style: TextStyle(
-                              color:
-                              Colors.white70,
+                              color: Colors.white70,
                               fontSize: 14,
                             ),
                           ),
                         ],
                       ),
                     ),
-
-                    const Icon(
-                      Icons.edit_rounded,
-                      color: Colors.white,
-                    ),
+                    const Icon(Icons.edit_rounded, color: Colors.white,),
                   ],
                 ),
               ),
-
               SizedBox(height: h * 0.035),
-
-
               const Text(
                 "General",
                 style: TextStyle(
@@ -171,37 +119,28 @@ class SettingsPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               SizedBox(height: h * 0.018),
-
-
               settingTile(
                 icon: Icons.person_outline_rounded,
                 title: "Account",
                 subtitle: "Manage your profile",
               ),
-
               settingTile(
                 icon: Icons.notifications_none_rounded,
                 title: "Notifications",
                 subtitle: "Task reminders & alerts",
               ),
-
               settingTile(
                 icon: Icons.lock_outline_rounded,
                 title: "Privacy",
                 subtitle: "Password & security",
               ),
-
               settingTile(
                 icon: Icons.color_lens_outlined,
                 title: "Appearance",
                 subtitle: "Theme & display",
               ),
-
               SizedBox(height: h * 0.03),
-
-              /// SUPPORT
               const Text(
                 "Support",
                 style: TextStyle(
@@ -209,26 +148,20 @@ class SettingsPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               SizedBox(height: h * 0.018),
-
               settingTile(
                 icon: Icons.help_outline_rounded,
                 title: "Help Center",
                 subtitle: "FAQs and support",
               ),
-
               settingTile(
                 icon: Icons.info_outline_rounded,
                 title: "About App",
                 subtitle: "Version 1.0.0",
               ),
-
               SizedBox(height: h * 0.035),
-
               SizedBox(
                 width: double.infinity,
-
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
@@ -239,7 +172,6 @@ class SettingsPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(18),
                     ),
                   ),
-
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -250,8 +182,7 @@ class SettingsPage extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 17,
-                          fontWeight:
-                          FontWeight.w600,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -271,7 +202,6 @@ class SettingsPage extends StatelessWidget {
     required String title,
     required String subtitle,
   }) {
-
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: Container(
@@ -281,14 +211,12 @@ class SettingsPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(22),
           boxShadow: [
             BoxShadow(
-              color:
-              Colors.black.withOpacity(0.03),
+              color: Colors.black.withOpacity(0.03),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
           ],
         ),
-
         child: Row(
           children: [
             Container(
@@ -314,15 +242,13 @@ class SettingsPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    subtitle,
-                    style: TextStyle(
+                    subtitle, style: TextStyle(
                       color: Colors.grey.shade600,
                     ),
                   ),
                 ],
               ),
             ),
-
             const Icon(
               Icons.arrow_forward_ios_rounded,
               size: 18,

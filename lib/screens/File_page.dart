@@ -4,7 +4,6 @@ import 'Home_Page.dart';
 
 class FilePage extends StatelessWidget {
   FilePage({super.key});
-
   final List<Map<String, dynamic>> taskFiles = [
     {
       "title": "Work Tasks",
@@ -31,7 +30,6 @@ class FilePage extends StatelessWidget {
       "color": const Color(0xFFFF5A5F),
     },
   ];
-
   final List<Map<String, dynamic>> recentTasks = [
     {
       "title": "Finish UI Design",
@@ -49,40 +47,27 @@ class FilePage extends StatelessWidget {
       "status": "Completed",
     },
   ];
-
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
-
-      bottomNavigationBar:
-      const BottomMenuBar(selectedIndex: 2),
-
+      bottomNavigationBar: const BottomMenuBar(selectedIndex: 2),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
             horizontal: 18,
             vertical: 14,
           ),
-
           child: Column(
-            crossAxisAlignment:
-            CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              /// HEADER
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-
                       Text(
                         "My Files",
                         style: TextStyle(
@@ -91,9 +76,7 @@ class FilePage extends StatelessWidget {
                           FontWeight.bold,
                         ),
                       ),
-
                       SizedBox(height: 4),
-
                       Text(
                         "Store and manage all tasks",
                         style: TextStyle(
@@ -103,7 +86,6 @@ class FilePage extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   Container(
                     height: 52,
                     width: 52,
@@ -120,16 +102,11 @@ class FilePage extends StatelessWidget {
                   ),
                 ],
               ),
-
               SizedBox(height: h * 0.03),
-
-              /// STORAGE CARD
               Container(
                 padding: const EdgeInsets.all(22),
                 decoration: BoxDecoration(
-                  borderRadius:
-                  BorderRadius.circular(28),
-
+                  borderRadius: BorderRadius.circular(28),
                   gradient: const LinearGradient(
                     colors: [
                       Color(0xFF4A90E2),
@@ -139,10 +116,8 @@ class FilePage extends StatelessWidget {
                 ),
 
                 child: Column(
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     const Text(
                       "Task Storage",
                       style: TextStyle(
@@ -150,36 +125,26 @@ class FilePage extends StatelessWidget {
                         fontSize: 15,
                       ),
                     ),
-
                     const SizedBox(height: 10),
-
                     const Text(
                       "41 Tasks Saved",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 28,
-                        fontWeight:
-                        FontWeight.bold,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-
                     const SizedBox(height: 20),
-
                     ClipRRect(
-                      borderRadius:
-                      BorderRadius.circular(
-                          20),
-                      child:
-                      LinearProgressIndicator(
+                      borderRadius: BorderRadius.circular(20),
+                      child: LinearProgressIndicator(
                         minHeight: 10,
                         value: 0.7,
                         backgroundColor: Colors.white24,
                         valueColor: const AlwaysStoppedAnimation(Colors.white,),
                       ),
                     ),
-
                     const SizedBox(height: 10),
-
                     const Text(
                       "70% Storage Used",
                       style: TextStyle(
@@ -201,11 +166,8 @@ class FilePage extends StatelessWidget {
               GridView.builder(
                 itemCount: taskFiles.length,
                 shrinkWrap: true,
-                physics:
-                const NeverScrollableScrollPhysics(),
-
-                gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 14,
                   mainAxisSpacing: 14,
@@ -218,13 +180,10 @@ class FilePage extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius:
-                      BorderRadius.circular(
-                          24),
-
+                      BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black
-                              .withOpacity(0.03),
+                          color: Colors.black.withOpacity(0.03),
                           blurRadius: 10,
                           offset:
                           const Offset(0, 4),
@@ -233,61 +192,35 @@ class FilePage extends StatelessWidget {
                     ),
 
                     child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                      mainAxisAlignment:
-                      MainAxisAlignment
-                          .spaceBetween,
-
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-
                         Container(
-                          padding:
-                          const EdgeInsets.all(
-                              14),
-
+                          padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
-                            color: item['color']
-                                .withOpacity(0.15),
-
-                            borderRadius:
-                            BorderRadius
-                                .circular(16),
-                          ),
-
+                            color: item['color'].withOpacity(0.15),
+                            borderRadius: BorderRadius.circular(16),),
                           child: Icon(
                             item['icon'],
                             size: 32,
                             color: item['color'],
                           ),
                         ),
-
                         Column(
-                          crossAxisAlignment:
-                          CrossAxisAlignment
-                              .start,
-
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
                             Text(
                               item['title'],
-                              style:
-                              const TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
-                                fontWeight:
-                                FontWeight
-                                    .bold,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-
-                            const SizedBox(
-                                height: 6),
-
+                            const SizedBox(height: 6),
                             Text(
                               item['subtitle'],
                               style: TextStyle(
-                                color: Colors
-                                    .grey.shade600,
+                                color: Colors.grey.shade600,
                               ),
                             ),
                           ],
@@ -297,15 +230,10 @@ class FilePage extends StatelessWidget {
                   );
                 },
               ),
-
               SizedBox(height: h * 0.035),
-
-              /// RECENT TASKS
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   const Text(
                     "Recent Tasks",
                     style: TextStyle(
@@ -322,122 +250,66 @@ class FilePage extends StatelessWidget {
                   ),
                 ],
               ),
-
               SizedBox(height: h * 0.015),
-
-              /// RECENT TASK LIST
               ListView.builder(
                 itemCount: recentTasks.length,
                 shrinkWrap: true,
-                physics:
-                const NeverScrollableScrollPhysics(),
-
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-
-                  final task =
-                  recentTasks[index];
-
-                  final bool completed =
-                      task['status'] ==
-                          "Completed";
-
+                  final task = recentTasks[index];
+                  final bool completed = task['status'] == "Completed";
                   return Padding(
-                    padding:
-                    const EdgeInsets.only(
-                      bottom: 14,
-                    ),
-
+                    padding: const EdgeInsets.only(bottom: 14,),
                     child: Container(
-                      padding:
-                      const EdgeInsets.all(
-                          18),
-
+                      padding: const EdgeInsets.all(18),
                       decoration: BoxDecoration(
                         color: Colors.white,
-
-                        borderRadius:
-                        BorderRadius.circular(
-                            22),
-
+                        borderRadius: BorderRadius.circular(22),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black
-                                .withOpacity(0.03),
+                            color: Colors.black.withOpacity(0.03),
                             blurRadius: 10,
-                            offset:
-                            const Offset(0, 4),
+                            offset: const Offset(0, 4),
                           ),
                         ],
                       ),
 
                       child: Row(
                         children: [
-
                           Container(
                             height: 52,
                             width: 52,
-
-                            decoration:
-                            BoxDecoration(
-                              color: completed
-                                  ? Colors.green
-                                  .withOpacity(
-                                  0.12)
-                                  : Colors.orange
-                                  .withOpacity(
-                                  0.12),
-
-                              borderRadius:
-                              BorderRadius
-                                  .circular(
-                                  16),
+                            decoration: BoxDecoration(
+                              color: completed ? Colors.green.withOpacity(0.12)
+                                  : Colors.orange.withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(16),
                             ),
-
                             child: Icon(
-                              completed
-                                  ? Icons
-                                  .check_circle_outline_rounded
-                                  : Icons
-                                  .pending_actions_rounded,
-
-                              color: completed
-                                  ? Colors.green
+                              completed ? Icons.check_circle_outline_rounded
+                                  : Icons.pending_actions_rounded,
+                              color: completed ? Colors.green
                                   : Colors.orange,
                             ),
                           ),
 
-                          const SizedBox(
-                              width: 16),
-
+                          const SizedBox(width: 16),
                           Expanded(
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment
-                                  .start,
-
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
                                 Text(
                                   task['title'],
-                                  style:
-                                  const TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 17,
-                                    fontWeight:
-                                    FontWeight
-                                        .bold,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
 
-                                const SizedBox(
-                                    height: 6),
-
+                                const SizedBox(height: 6),
                                 Text(
                                   task['time'],
-                                  style:
-                                  TextStyle(
-                                    color: Colors
-                                        .grey
-                                        .shade600,
+                                  style: TextStyle(
+                                    color: Colors.grey.shade600,
                                   ),
                                 ),
                               ],
@@ -445,40 +317,17 @@ class FilePage extends StatelessWidget {
                           ),
 
                           Container(
-                            padding:
-                            const EdgeInsets
-                                .symmetric(
-                              horizontal: 12,
-                              vertical: 6,
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6,),
+                            decoration: BoxDecoration(
+                              color: completed ? Colors.green.withOpacity(0.12)
+                                  : Colors.orange.withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(30),
                             ),
-
-                            decoration:
-                            BoxDecoration(
-                              color: completed
-                                  ? Colors.green
-                                  .withOpacity(
-                                  0.12)
-                                  : Colors.orange
-                                  .withOpacity(
-                                  0.12),
-
-                              borderRadius:
-                              BorderRadius
-                                  .circular(
-                                  30),
-                            ),
-
                             child: Text(
                               task['status'],
-
                               style: TextStyle(
-                                color: completed
-                                    ? Colors.green
-                                    : Colors.orange,
-
-                                fontWeight:
-                                FontWeight
-                                    .w600,
+                                color: completed ? Colors.green : Colors.orange,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
@@ -488,7 +337,6 @@ class FilePage extends StatelessWidget {
                   );
                 },
               ),
-
               SizedBox(height: h * 0.12),
             ],
           ),

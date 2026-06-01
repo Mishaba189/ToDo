@@ -10,7 +10,6 @@ class RegistrationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final regProvider = context.read<ProviderAuth>();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -38,10 +37,7 @@ class RegistrationPage extends StatelessWidget {
               ),
               SizedBox(height:screenHeight*0.008,),
               TextField(
-                controller:regProvider.name,
                 decoration: InputDecoration(
-                  errorText: regProvider.nameError,
-                 // labelText: 'Username',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15)
                   )
@@ -57,10 +53,7 @@ class RegistrationPage extends StatelessWidget {
               ),
               SizedBox(height:screenHeight*0.008,),
               TextField(
-                controller: regProvider.email,
                 decoration: InputDecoration(
-                  errorText: regProvider.emailError,
-                  //labelText: 'email',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15)
                   )
@@ -75,13 +68,12 @@ class RegistrationPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height:screenHeight*0.008,),
-              Consumer<ProviderAuth>(
+              Consumer<AuthProvider>(
                 builder: (context, regProvider, child) {
                   return PasswordField(
                     isObscure: !regProvider.isPasswordVisible,
-                    onChanged: regProvider.setPassword,
                     onToggle: regProvider.togglePasswordVisibility,
-                    ErrorText: regProvider.passwordError,
+                    onChanged: (String value) {  },
                   );
                 },
               ),
@@ -90,28 +82,7 @@ class RegistrationPage extends StatelessWidget {
               SizedBox(
                 height:screenHeight*0.052,
                 width:screenWidth*0.0349,
-                child: ElevatedButton(onPressed: (){
-                  final isValid= regProvider.validateForm();
-                  if(isValid){
-                    regProvider.registration();
-                    regProvider.clearFields();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>LoginPage()),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Registered'),duration: Duration(seconds: 1),)
-                    );
-
-                  }else{
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Fill all the fields'),
-                      ),
-                    );
-                  }
-
-                },
+                child: ElevatedButton(onPressed: (){},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent,
                     ),
@@ -146,14 +117,14 @@ class RegistrationPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(onPressed: (){context.read<ProviderAuth>().openGoogle();},
+                  IconButton(onPressed: (){},
                       icon:Image.asset('assets/images/google.png',height:43 ,width: 43,)
                   ),
-                  IconButton(onPressed:(){ context.read<ProviderAuth>().openFacebook();}, icon: Icon(Icons.facebook,color: Colors.blue,size: 51,),
+                  IconButton(onPressed:(){ }, icon: Icon(Icons.facebook,color: Colors.blue,size: 51,),
                   ),
                   IconButton(
                     icon: Image.asset('assets/images/instagramlogo.png',height: 43,width: 43,),
-                    onPressed: () {context.read<ProviderAuth>().openInstagram();},
+                    onPressed: () {},
                   ),
 
                 ],
@@ -167,20 +138,19 @@ class RegistrationPage extends StatelessWidget {
   }
 }
 
-//password field input box with boarder//
 
 class PasswordField extends StatelessWidget {
   final bool isObscure;
   final VoidCallback onToggle;
-  final ValueChanged<String> onChanged;
-  final String ? ErrorText;
+  final ValueChanged<String> ? onChanged;
+  final String ? errorText;
 
   const PasswordField({
     super.key,
     required this.isObscure,
     required this.onToggle,
     required this.onChanged,
-    this.ErrorText,
+    this.errorText,
   });
 
   @override
@@ -189,7 +159,7 @@ class PasswordField extends StatelessWidget {
       obscureText: isObscure,
       onChanged: onChanged,
       decoration: InputDecoration(
-        errorText: ErrorText,
+        errorText: errorText,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
         ),
@@ -205,5 +175,4 @@ class PasswordField extends StatelessWidget {
 }
 
 
-//*************************************end**********************************************//
 

@@ -5,7 +5,6 @@ import 'Home_Page.dart';
 
 class CalendarPage extends StatelessWidget {
   CalendarPage({super.key});
-
   final List<Map<String, String>> tasks = [
     {
       'date': '16 Sep 2026',
@@ -26,17 +25,12 @@ class CalendarPage extends StatelessWidget {
       'category': 'Work'
     },
   ];
-
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
-
-      bottomNavigationBar:
-      const BottomMenuBar(selectedIndex: 1),
-
+      bottomNavigationBar: const BottomMenuBar(selectedIndex: 1),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(
@@ -46,15 +40,11 @@ class CalendarPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
                         "Calendar",
@@ -63,9 +53,7 @@ class CalendarPage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
                       SizedBox(height: 4),
-
                       Text(
                         "Manage your daily schedule",
                         style: TextStyle(
@@ -75,7 +63,6 @@ class CalendarPage extends StatelessWidget {
                       ),
                     ],
                   ),
-
                   Container(
                     height: 50,
                     width: 50,
@@ -91,19 +78,15 @@ class CalendarPage extends StatelessWidget {
                   ),
                 ],
               ),
-
               SizedBox(height: h * 0.03),
-
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius:
-                  BorderRadius.circular(28),
+                  borderRadius: BorderRadius.circular(28),
                   boxShadow: [
                     BoxShadow(
-                      color:
-                      Colors.black.withOpacity(0.04),
+                      color: Colors.black.withOpacity(0.04),
                       blurRadius: 12,
                       offset: const Offset(0, 4),
                     ),
@@ -111,11 +94,8 @@ class CalendarPage extends StatelessWidget {
                 ),
                 child: TableCalendar(
                   focusedDay: DateTime.now(),
-                  firstDay:
-                  DateTime.utc(2020, 1, 1),
-                  lastDay:
-                  DateTime.utc(2035, 12, 31),
-
+                  firstDay: DateTime.utc(2020, 1, 1),
+                  lastDay: DateTime.utc(2035, 12, 31),
                   headerStyle: const HeaderStyle(
                     titleCentered: true,
                     formatButtonVisible: false,
@@ -127,41 +107,24 @@ class CalendarPage extends StatelessWidget {
 
                   calendarStyle: CalendarStyle(
                     todayDecoration: BoxDecoration(
-                      color:
-                      const Color(0xFF4A90E2),
-                      borderRadius:
-                      BorderRadius.circular(12),
+                      color: const Color(0xFF4A90E2),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-
-                    selectedDecoration:
-                    BoxDecoration(
-                      color:
-                      const Color(0xFF8EBBFF),
-                      borderRadius:
-                      BorderRadius.circular(12),
+                    selectedDecoration: BoxDecoration(
+                      color: const Color(0xFF8EBBFF),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-
-                    weekendTextStyle:
-                    const TextStyle(
-                      color: Colors.red,
-                    ),
-
-                    defaultDecoration:
-                    BoxDecoration(
-                      borderRadius:
-                      BorderRadius.circular(12),
+                    weekendTextStyle: const TextStyle(color: Colors.red,),
+                    defaultDecoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
               ),
-
               SizedBox(height: h * 0.03),
-
               Row(
-                mainAxisAlignment:
-                MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   const Text(
                     "Upcoming Tasks",
                     style: TextStyle(
@@ -172,15 +135,10 @@ class CalendarPage extends StatelessWidget {
 
                   TextButton(
                     onPressed: () {},
-                    child: const Text(
-                      "See All",
-                    ),
-                  ),
+                    child: const Text("See All",),),
                 ],
               ),
-
               SizedBox(height: h * 0.015),
-
               ListView.builder(
                 itemCount: tasks.length,
                 shrinkWrap: true,
@@ -262,8 +220,6 @@ class CalendarPage extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-
-
                               ],
                             ),
                           ),
@@ -277,10 +233,7 @@ class CalendarPage extends StatelessWidget {
                               ),
                               const PopupMenuItem(
                                 value: "delete",
-                                child:
-                                Text(
-                                  "Delete",
-                                ),
+                                child: Text("Delete",),
                               ),
                             ],
                           ),

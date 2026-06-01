@@ -4,8 +4,8 @@ class ResetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -14,10 +14,10 @@ class ResetPassword extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: screenHeight*.14,),
+              SizedBox(height: h*.14,),
               Text('Forgot Password?',textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 28,fontWeight: FontWeight.bold,color: Colors.black)),
-              SizedBox(height:screenHeight*0.065,),
+              SizedBox(height:h*0.065,),
 
 
             ],

@@ -11,7 +11,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logprovider = context.read<ProviderAuth>();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -38,9 +37,7 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height:screenHeight*0.008,),
               TextField(
-                controller: logprovider.inputEmail,
                 decoration: InputDecoration(
-                  errorText: logprovider.inEmailError,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(15)
                   ),
@@ -58,13 +55,12 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height:screenHeight*0.008,),
-              Consumer<ProviderAuth>(
+              Consumer<AuthProvider>(
                   builder: (context, logProvider, child) {
                     return PasswordField(
                       isObscure: !logProvider.isPasswordVisible,
                       onToggle: logProvider.togglePasswordVisibility,
-                      onChanged: logProvider.setInPassword,
-                      ErrorText: logProvider.inPasswordError,
+                      onChanged: (String value) {  },
                     );
                   }
 
@@ -121,14 +117,14 @@ class LoginPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(onPressed: (){context.read<ProviderAuth>().openGoogle();},
+                  IconButton(onPressed: (){},
                       icon:Image.asset('assets/images/google.png',height:43 ,width: 43,)
                   ),
-                  IconButton(onPressed: (){context.read<ProviderAuth>().openFacebook();}, icon: Icon(Icons.facebook,color: Colors.blue,size: 51,),
+                  IconButton(onPressed: (){}, icon: Icon(Icons.facebook,color: Colors.blue,size: 51,),
                   ),
                   IconButton(
                     icon: Image.asset('assets/images/instagramlogo.png',height: 43,width: 43,),
-                    onPressed: () {context.read<ProviderAuth>().openInstagram();},
+                    onPressed: () {},
                   ),
 
                 ],
@@ -144,4 +140,3 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-//*************************************end**********************************************//
