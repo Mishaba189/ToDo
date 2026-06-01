@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/screens/login/Login_page.dart';
 import 'package:todo/Providers/Provider_auth.dart';
-
-import '../dash_board_page.dart';
+import 'dash_board_page.dart';
 import 'Reset_password.dart';
 
 
@@ -16,7 +13,6 @@ class Authentication extends StatelessWidget {
     final h = MediaQuery.of(context).size.height;
     final authProvider = context.watch<AuthProvider>();
     final isLogin = authProvider.isLogin;
-
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
       body: SingleChildScrollView(
@@ -113,8 +109,7 @@ class Authentication extends StatelessWidget {
                   ),
 
                   child: Column(
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
                       Text(
@@ -131,6 +126,7 @@ class Authentication extends StatelessWidget {
                       // USERNAME
                       if (!isLogin) ...[
                         TextField(
+                          controller: authProvider.userName,
                           decoration: InputDecoration(
                             hintText: "Username",
                             prefixIcon: const Icon(
@@ -153,8 +149,8 @@ class Authentication extends StatelessWidget {
 
                       // EMAIL
                       TextField(
-                        keyboardType:
-                        TextInputType.emailAddress,
+                        controller: authProvider.userEmail,
+                        keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           hintText: "Email Address",
                           prefixIcon: const Icon(
@@ -175,16 +171,11 @@ class Authentication extends StatelessWidget {
 
                       // PASSWORD
                       Consumer<AuthProvider>(
-                        builder: (
-                            context,
-                            provider,
-                            child,
-                            ) {
+                        builder: (context, provider, child,) {
                           return PasswordField(
-                            isObscure:
-                            !provider.isPasswordVisible,
-                            onToggle:
-                            provider.togglePasswordVisibility,
+                            controller: authProvider.password,
+                            isObscure: !provider.isPasswordVisible,
+                            onToggle: provider.togglePasswordVisibility,
                             onChanged: (value) {},
                           );
                         },
@@ -239,7 +230,7 @@ class Authentication extends StatelessWidget {
                           width: double.infinity,
                           height: 56,
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (isLogin) {
                                 Navigator.pushReplacement(
                                   context,
@@ -257,20 +248,29 @@ class Authentication extends StatelessWidget {
                                     },
                                   ),
                                 );
-                              } else {
-                                // signup logic
+                              } else  {
+                                FocusScope.of(context).unfocus();
+                                bool success = await authProvider.register(
+                                    authProvider.userEmail.text,
+                                    authProvider.password.text);
+                               if(success){
+                                 authProvider.clearAll();
+                                 context.read<AuthProvider>().toggleAuthMode();
+                               } else{
+
+                                 showErrorOverlay(
+                                   context,
+                                   authProvider.error!,
+                                 );
+                               }
+
                               }
                             },
-                            style:
-                            ElevatedButton.styleFrom(
+                            style: ElevatedButton.styleFrom(
                               elevation: 0,
-                              backgroundColor:
-                              const Color(0xFF4A90E2),
-                              shape:
-                              RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(
-                                    18),
+                              backgroundColor: const Color(0xFF4A90E2),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(18),
                               ),
                             ),
                             child: Text(
@@ -279,8 +279,7 @@ class Authentication extends StatelessWidget {
                                   : "Create Account",
                               style: const TextStyle(
                                 fontSize: 18,
-                                fontWeight:
-                                FontWeight.bold,
+                                fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
@@ -338,6 +337,7 @@ class PasswordField extends StatelessWidget {
   final VoidCallback onToggle;
   final ValueChanged<String>? onChanged;
   final String? errorText;
+  final TextEditingController ? controller;
 
   const PasswordField({
     super.key,
@@ -345,11 +345,15 @@ class PasswordField extends StatelessWidget {
     required this.onToggle,
     required this.onChanged,
     this.errorText,
+    this.controller
+
+
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       obscureText: isObscure,
       onChanged: onChanged,
       decoration: InputDecoration(
@@ -375,6 +379,61 @@ class PasswordField extends StatelessWidget {
       ),
     );
   }
+}
+
+
+
+Widget errorBanner(String message) {
+  return Positioned(
+   bottom: 60,
+    left: 16,
+    right: 16,
+    child: Material(
+      elevation: 4,
+      borderRadius: BorderRadius.circular(12),
+      color: Colors.red,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            const Icon(
+              Icons.error_outline,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                message,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+
+void showErrorOverlay(
+    BuildContext context,
+    String message,
+    ) {
+  final overlay = Overlay.of(context);
+  late OverlayEntry entry;
+
+  entry = OverlayEntry(
+    builder: (_) => errorBanner(message),
+  );
+
+  overlay.insert(entry);
+
+  Future.delayed(
+    const Duration(seconds: 3),
+        () => entry.remove(),
+  );
 }
 
 

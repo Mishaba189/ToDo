@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo/screens/login/authentication.dart';
+import 'package:todo/screens/authentication.dart';
 
 
 class WelcomePage extends StatelessWidget {

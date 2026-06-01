@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'login/authentication.dart';
+import 'authentication.dart';
 
 
 class SettingsPage extends StatelessWidget {
