@@ -14,7 +14,12 @@ class AuthServices {
     await auth.signOut();
   }
 
+  Future<void>resetPassword(String email)async{
+    await auth.sendPasswordResetEmail(email: email);
+  }
+
   String getReadableError(dynamic e) {
+
     if (e is FirebaseAuthException) {
       switch (e.code) {
 
@@ -46,10 +51,9 @@ class AuthServices {
           return 'This account has been disabled';
 
         default:
-          return e.message ?? 'Something went wrong';
+          return 'Something went wrong';
       }
     }
-
     return e.toString();
   }
 

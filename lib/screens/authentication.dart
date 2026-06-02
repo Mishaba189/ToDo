@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/Providers/Provider_auth.dart';
+import '../widgets.dart';
 import 'dash_board_page.dart';
 import 'Reset_password.dart';
 
 
 class Authentication extends StatelessWidget {
-  const Authentication({super.key});
+  Authentication({super.key});
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -108,29 +110,72 @@ class Authentication extends StatelessWidget {
                     ],
                   ),
 
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
 
-                      Text(
-                        isLogin ? "Login" : "Sign Up",
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF4A90E2),
+                        Text(
+                          isLogin ? "Login" : "Sign Up",
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF4A90E2),
+                          ),
                         ),
-                      ),
 
-                      const SizedBox(height: 24),
+                        const SizedBox(height: 24),
 
-                      // USERNAME
-                      if (!isLogin) ...[
-                        TextField(
-                          controller: authProvider.userName,
+                        // USERNAME
+                        if (!isLogin) ...[
+                          TextFormField(
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            controller: authProvider.userName,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Name is required';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Username",
+                              prefixIcon: const Icon(
+                                Icons.person_outline_rounded,
+                              ),
+                              filled: true,
+                              fillColor:
+                              const Color(0xFFF5F7FB),
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(16),
+                                borderSide:
+                                BorderSide.none,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(height: 16),
+                        ],
+
+                        // EMAIL
+                        TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: authProvider.userEmail,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Email is required';
+                            }
+                            if (!value.contains('@')) {
+                              return 'Enter valid email';
+                            }
+                            return null;
+                          },
                           decoration: InputDecoration(
-                            hintText: "Username",
+                            hintText: "Email Address",
                             prefixIcon: const Icon(
-                              Icons.person_outline_rounded,
+                              Icons.email_outlined,
                             ),
                             filled: true,
                             fillColor:
@@ -138,189 +183,190 @@ class Authentication extends StatelessWidget {
                             border: OutlineInputBorder(
                               borderRadius:
                               BorderRadius.circular(16),
-                              borderSide:
-                              BorderSide.none,
+                              borderSide: BorderSide.none,
                             ),
                           ),
                         ),
 
                         const SizedBox(height: 16),
-                      ],
 
-                      // EMAIL
-                      TextField(
-                        controller: authProvider.userEmail,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hintText: "Email Address",
-                          prefixIcon: const Icon(
-                            Icons.email_outlined,
-                          ),
-                          filled: true,
-                          fillColor:
-                          const Color(0xFFF5F7FB),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                            BorderRadius.circular(16),
-                            borderSide: BorderSide.none,
-                          ),
+                        // PASSWORD
+                        Consumer<AuthProvider>(
+                          builder: (context, provider, child,) {
+                            return passwordField(
+                              controller: authProvider.password,
+                              isObscure: !provider.isPasswordVisible,
+                              onToggle: provider.togglePasswordVisibility,
+                              onChanged: (value) {},
+                            );
+                          },
                         ),
-                      ),
 
-                      const SizedBox(height: 16),
+                        // FORGOT PASSWORD
+                        if (isLogin) ...[
+                          const SizedBox(height: 8),
 
-                      // PASSWORD
-                      Consumer<AuthProvider>(
-                        builder: (context, provider, child,) {
-                          return PasswordField(
-                            controller: authProvider.password,
-                            isObscure: !provider.isPasswordVisible,
-                            onToggle: provider.togglePasswordVisibility,
-                            onChanged: (value) {},
-                          );
-                        },
-                      ),
-
-                      // FORGOT PASSWORD
-                      if (isLogin) ...[
-                        const SizedBox(height: 8),
-
-                        Align(
-                          alignment:
-                          Alignment.centerRight,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  transitionDuration:
-                                  const Duration(milliseconds: 300),
-                                  pageBuilder: (_, animation, __) =>
-                                  const ResetPassword(),
-                                  transitionsBuilder:
-                                      (_, animation, __, child) {
-                                    return SlideTransition(
-                                      position: Tween<Offset>(
-                                        begin: const Offset(1, 0),
-                                        end: Offset.zero,
-                                      ).animate(animation),
-                                      child: child,
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              "Forgot Password?",
-                              style: TextStyle(
-                                color: Color(0xFF4A90E2),
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-
-                      const SizedBox(height: 20),
-
-                      // BUTTON
-                      AnimatedSwitcher(
-                        duration: Duration(milliseconds: 300),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 56,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              if (isLogin) {
-                                Navigator.pushReplacement(
+                          Align(
+                            alignment:
+                            Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
                                   context,
                                   PageRouteBuilder(
-                                    transitionDuration:
-                                    const Duration(milliseconds: 300),
+                                    transitionDuration: const Duration(milliseconds: 300),
                                     pageBuilder: (_, animation, __) =>
-                                    const Dashboard(),
+                                     ResetPassword(),
                                     transitionsBuilder:
                                         (_, animation, __, child) {
-                                      return FadeTransition(
-                                        opacity: animation,
+                                      return SlideTransition(
+                                        position: Tween<Offset>(
+                                          begin: const Offset(1, 0),
+                                          end: Offset.zero,
+                                        ).animate(animation),
                                         child: child,
                                       );
                                     },
                                   ),
                                 );
-                              } else  {
-                                FocusScope.of(context).unfocus();
-                                bool success = await authProvider.register(
-                                    authProvider.userEmail.text,
-                                    authProvider.password.text);
-                               if(success){
-                                 authProvider.clearAll();
-                                 context.read<AuthProvider>().toggleAuthMode();
-                               } else{
-
-                                 showErrorOverlay(
-                                   context,
-                                   authProvider.error!,
-                                 );
-                               }
-
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              backgroundColor: const Color(0xFF4A90E2),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                              ),
-                            ),
-                            child: Text(
-                              isLogin
-                                  ? "Login"
-                                  : "Create Account",
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            isLogin
-                                ? "Don't have an account?"
-                                : "Already have an account?",
-                          ),
-                          AnimatedSwitcher(
-                            duration: Duration(milliseconds: 300),
-                            child: TextButton(
-                              onPressed: () {
-                                context.read<AuthProvider>().toggleAuthMode();
                               },
-                              child: Text(
-                                isLogin
-                                    ? "Sign Up"
-                                    : "Sign In",
-                                style:
-                                const TextStyle(
-                                  color:
-                                  Color(0xFF4A90E2),
-                                  fontWeight:
-                                  FontWeight.bold,
+                              child: const Text(
+                                "Forgot Password?",
+                                style: TextStyle(
+                                  color: Color(0xFF4A90E2),
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                           ),
                         ],
-                      ),
-                    ],
+
+                        const SizedBox(height: 20),
+
+                        // BUTTON
+                        AnimatedSwitcher(
+                          duration: Duration(milliseconds: 300),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 56,
+                            child: ElevatedButton(
+                              onPressed:authProvider.isLoading ? null
+                                  : () async {
+                                if (!_formKey.currentState!.validate()) return;
+                                if (isLogin) {
+                                  FocusScope.of(context).unfocus();
+                                 bool success= await  authProvider.login(authProvider.userEmail.text, authProvider.password.text);
+                                 if(success){
+                                   Navigator.pushReplacement(
+                                     context,
+                                     PageRouteBuilder(
+                                       transitionDuration:
+                                       const Duration(milliseconds: 300),
+                                       pageBuilder: (_, animation, __) =>
+                                       const Dashboard(),
+                                       transitionsBuilder:
+                                           (_, animation, __, child) {
+                                         return FadeTransition(
+                                           opacity: animation,
+                                           child: child,
+                                         );
+                                       },
+                                     ),
+                                   );
+                                   authProvider.clearAll();
+                                 }else{
+                                   FocusScope.of(context).unfocus();
+                                   showBannerOverlay(
+                                     context,
+                                     authProvider.error!,
+                                     Colors.red,
+                                     Icon(Icons.error_outline_outlined,color: Colors.white,),
+
+                                   );
+                                 }
+                                } else  {
+                                  FocusScope.of(context).unfocus();
+                                  bool success = await authProvider.register(
+                                      authProvider.userEmail.text,
+                                      authProvider.password.text,
+                                    authProvider.userName.text
+                                  );
+                                  if(success){
+                                    authProvider.clearAll();
+                                    _formKey.currentState!.reset();
+                                    context.read<AuthProvider>().toggleAuthMode();
+
+                                  } else{
+                                    debugPrint(authProvider.error);
+                                    showBannerOverlay(
+                                      context,
+                                      authProvider.error!,
+                                      Colors.red,
+                                      Icon(Icons.error_outline_outlined,color: Colors.white,),
+
+                                    );
+                                  }
+
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                backgroundColor: const Color(0xFF4A90E2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18),
+                                ),
+                              ),
+                              child: Text(
+                                isLogin
+                                    ? "Login"
+                                    : "Create Account",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              isLogin
+                                  ? "Don't have an account?"
+                                  : "Already have an account?",
+                            ),
+                            AnimatedSwitcher(
+                              duration: Duration(milliseconds: 300),
+                              child: TextButton(
+                                onPressed: () {
+                                  authProvider.clearAll();
+                                  FocusScope.of(context).unfocus();
+                                  context.read<AuthProvider>().toggleAuthMode();
+                                },
+                                child: Text(
+                                  isLogin
+                                      ? "Sign Up"
+                                      : "Sign In",
+                                  style:
+                                  const TextStyle(
+                                    color:
+                                    Color(0xFF4A90E2),
+                                    fontWeight:
+                                    FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -332,109 +378,47 @@ class Authentication extends StatelessWidget {
   }
 }
 
-class PasswordField extends StatelessWidget {
-  final bool isObscure;
-  final VoidCallback onToggle;
-  final ValueChanged<String>? onChanged;
-  final String? errorText;
-  final TextEditingController ? controller;
-
-  const PasswordField({
-    super.key,
-    required this.isObscure,
-    required this.onToggle,
-    required this.onChanged,
-    this.errorText,
-    this.controller
-
-
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      obscureText: isObscure,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        hintText: "Password",
-        errorText: errorText,
-        prefixIcon: const Icon(
-          Icons.lock_outline_rounded,
-        ),
-        suffixIcon: IconButton(
-          onPressed: onToggle,
-          icon: Icon(
-            isObscure
-                ? Icons.visibility_off_outlined
-                : Icons.visibility_outlined,
-          ),
-        ),
-        filled: true,
-        fillColor: const Color(0xFFF5F7FB),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none,
+Widget passwordField({
+  required bool isObscure,
+  required VoidCallback onToggle,
+  TextEditingController? controller,
+  ValueChanged<String>? onChanged,
+}) {
+  return TextFormField(
+    autovalidateMode: AutovalidateMode.onUserInteraction,
+    controller: controller,
+    obscureText: isObscure,
+    onChanged: onChanged,
+    validator: (value) {
+      if (value == null || value.isEmpty) {
+        return "Password is required";
+      }
+      if (value.length < 6) {
+        return "Password must be at least 6 characters";
+      }
+      return null;
+    },
+    decoration: InputDecoration(
+      hintText: "Password",
+      prefixIcon: const Icon(
+        Icons.lock_outline_rounded,
+      ),
+      suffixIcon: IconButton(
+        onPressed: onToggle,
+        icon: Icon(
+          isObscure
+              ? Icons.visibility_off_outlined
+              : Icons.visibility_outlined,
         ),
       ),
-    );
-  }
-}
-
-
-
-Widget errorBanner(String message) {
-  return Positioned(
-   bottom: 60,
-    left: 16,
-    right: 16,
-    child: Material(
-      elevation: 4,
-      borderRadius: BorderRadius.circular(12),
-      color: Colors.red,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          children: [
-            const Icon(
-              Icons.error_outline,
-              color: Colors.white,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                message,
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
+      filled: true,
+      fillColor: const Color(0xFFF5F7FB),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: BorderSide.none,
       ),
     ),
   );
 }
-
-
-void showErrorOverlay(
-    BuildContext context,
-    String message,
-    ) {
-  final overlay = Overlay.of(context);
-  late OverlayEntry entry;
-
-  entry = OverlayEntry(
-    builder: (_) => errorBanner(message),
-  );
-
-  overlay.insert(entry);
-
-  Future.delayed(
-    const Duration(seconds: 3),
-        () => entry.remove(),
-  );
-}
-
 
 
