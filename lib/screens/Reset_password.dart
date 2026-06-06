@@ -91,8 +91,8 @@ class ResetPassword extends StatelessWidget {
                     onPressed: authProvider.resetLinkSent
                         ? null
                         : () async {
+                      if (!_formKey.currentState!.validate()) return;
                       FocusScope.of(context).unfocus();
-
                       bool success = await authProvider.resetPassword(
                         authProvider.userEmail.text.trim(),
                       );
@@ -150,6 +150,7 @@ class ResetPassword extends StatelessWidget {
 
                   GestureDetector(
                     onTap: () async {
+                      if (!_formKey.currentState!.validate()) return;
                       await authProvider.resetPassword(
                         authProvider.userEmail.text.trim(),
                       );

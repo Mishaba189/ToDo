@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/Providers/Provider_auth.dart';
+import 'package:todo/Providers/task_provider.dart';
 import 'package:todo/splash.dart';
 
 void main() async {
@@ -15,7 +16,8 @@ void main() async {
   runApp(
       MultiProvider(
     providers: [
-   ChangeNotifierProvider(create: (_)=>AuthProvider())
+   ChangeNotifierProvider(create: (_)=>AuthProvider()),
+      ChangeNotifierProvider(create: (_)=> TaskProvider())
   ],
   child: const MyApp(),
   ));

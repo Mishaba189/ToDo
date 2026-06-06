@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Providers/task_provider.dart';
+
 
 class TaskPage extends StatelessWidget {
   const TaskPage({super.key});
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
+    final provider = context.watch<TaskProvider>();
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
       appBar: AppBar(
@@ -279,25 +284,14 @@ class TaskPage extends StatelessWidget {
               spacing: 12,
               runSpacing: 12,
               children: [
-                categoryChip(
-                  title: "Work",
-                  color: const Color(0xFF4A90E2),
-                ),
-                categoryChip(
-                  title: "Personal",
-                  color: const Color(0xFFFF9F43),
-                ),
-                categoryChip(
-                  title: "Shopping",
-                  color: const Color(0xFF00C48C),
-                ),
-                categoryChip(
-                  title: "Health",
-                  color: const Color(0xFFFF5A5F),
+                ...provider.categories.map(
+                      (category) => categoryChip(
+                    title: category.name,
+                    color: Color(category.colorValue),
+                  ),
                 ),
                 InkWell(
                   onTap: () {
-                    TextEditingController controller = TextEditingController();
                     IconData selectedIcon = Icons.work_outline_rounded;
                     final List<IconData> categoryIcons = [
                       Icons.work_outline_rounded,
@@ -391,8 +385,7 @@ class TaskPage extends StatelessWidget {
 
                                   /// TEXT FIELD
                                   TextField(
-                                    controller: controller,
-
+                                    controller: provider.taskName,
                                     decoration: InputDecoration(
                                       hintText: "Category Name",
 
@@ -465,63 +458,33 @@ class TaskPage extends StatelessWidget {
                                         mainAxisSpacing: 14,
                                       ),
 
-                                      itemBuilder:
-                                          (context, index) {
-
-                                        final icon =
-                                        categoryIcons[index];
-
-                                        final isSelected =
-                                            selectedIcon ==
-                                                icon;
-
+                                      itemBuilder: (context, index) {
+                                        final icon = categoryIcons[index];
+                                        final isSelected = selectedIcon == icon;
                                         return InkWell(
                                           borderRadius:
-                                          BorderRadius.circular(
-                                              20),
+                                          BorderRadius.circular(20),
+                                          onTap: () {setState(() {selectedIcon = icon;});},
 
-                                          onTap: () {
-
-                                            setState(() {
-                                              selectedIcon =
-                                                  icon;
-                                            });
-                                          },
-
-                                          child:
-                                          AnimatedContainer(
-                                            duration:
-                                            const Duration(
+                                          child: AnimatedContainer(
+                                            duration: const Duration(
                                                 milliseconds:
                                                 250),
 
                                             decoration:
                                             BoxDecoration(
                                               color: isSelected
-                                                  ? const Color(
-                                                0xFF4A90E2,
-                                              )
-                                                  : const Color(
-                                                0xFFEAF3FF,
-                                              ),
-
-                                              borderRadius:
-                                              BorderRadius
-                                                  .circular(
-                                                  20),
+                                                  ? const Color(0xFF4A90E2,)
+                                                  : const Color(0xFFEAF3FF,),
+                                              borderRadius: BorderRadius.circular(20),
                                             ),
 
                                             child: Icon(
                                               icon,
                                               size: 30,
-
-                                              color:
-                                              isSelected
-                                                  ? Colors
-                                                  .white
-                                                  : const Color(
-                                                0xFF4A90E2,
-                                              ),
+                                              color: isSelected
+                                                  ? Colors.white
+                                                  : const Color(0xFF4A90E2,),
                                             ),
                                           ),
                                         );
@@ -537,32 +500,21 @@ class TaskPage extends StatelessWidget {
 
                                     child: ElevatedButton(
                                       onPressed: () {
-
-                                        /// SAVE CATEGORY HERE
+                                        provider.createCategory(
+                                            provider.taskName.text.trim(),
+                                            selectedIcon
+                                        );
 
                                         Navigator.pop(context);
                                       },
 
-                                      style:
-                                      ElevatedButton.styleFrom(
+                                      style: ElevatedButton.styleFrom(
                                         backgroundColor:
-                                        const Color(
-                                          0xFF4A90E2,
-                                        ),
-
+                                        const Color(0xFF4A90E2,),
                                         elevation: 0,
-
-                                        padding:
-                                        const EdgeInsets
-                                            .symmetric(
-                                          vertical: 18,
-                                        ),
-
-                                        shape:
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              22),
+                                        padding: const EdgeInsets.symmetric(vertical: 18,),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(22),
                                         ),
                                       ),
 
@@ -603,10 +555,7 @@ class TaskPage extends StatelessWidget {
 
                     decoration: BoxDecoration(
                       color: const Color(0xFFEAF3FF),
-
-                      borderRadius:
-                      BorderRadius.circular(16),
-
+                      borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color: const Color(0xFF4A90E2),
                       ),
@@ -614,17 +563,13 @@ class TaskPage extends StatelessWidget {
 
                     child: const Row(
                       mainAxisSize: MainAxisSize.min,
-
                       children: [
-
                         Icon(
                           Icons.add_rounded,
                           size: 18,
                           color: Color(0xFF4A90E2),
                         ),
-
                         SizedBox(width: 6),
-
                         Text(
                           "Add Category",
                           style: TextStyle(

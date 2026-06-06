@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/screens/Task_page.dart';
 import 'package:todo/screens/notification_page.dart';
 
+import '../Providers/task_provider.dart';
 import 'Calendar_page.dart';
 import 'File_page.dart';
 import 'settings_page.dart';
@@ -12,6 +14,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
+    final provider = context.watch<TaskProvider>();
     final List<Map<String, dynamic>> gridItems = [
       {
         'title': 'Work',
@@ -63,6 +66,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: const Color(0xFF4A90E2),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18),),
         onPressed: () {
+          provider.loadCategories();
           Navigator.push(context, MaterialPageRoute(builder: (_) => TaskPage()));
         },
         child: const Icon(

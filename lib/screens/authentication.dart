@@ -144,8 +144,7 @@ class Authentication extends StatelessWidget {
                                 Icons.person_outline_rounded,
                               ),
                               filled: true,
-                              fillColor:
-                              const Color(0xFFF5F7FB),
+                              fillColor: const Color(0xFFF5F7FB),
                               border: OutlineInputBorder(
                                 borderRadius:
                                 BorderRadius.circular(16),
