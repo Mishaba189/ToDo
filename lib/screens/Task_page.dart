@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../Providers/task_provider.dart';
+import '../widgets.dart';
 
 
 class TaskPage extends StatelessWidget {
@@ -20,7 +21,10 @@ class TaskPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 12),
           child: InkWell(
             borderRadius: BorderRadius.circular(14),
-            onTap: () {Navigator.pop(context);},
+            onTap: () {
+              Navigator.pop(context);
+              provider.loadCategories();
+              },
             child: const Icon(
               Icons.arrow_back_ios_new_rounded,
               size: 20,
@@ -285,10 +289,52 @@ class TaskPage extends StatelessWidget {
               runSpacing: 12,
               children: [
                 ...provider.categories.map(
-                      (category) => categoryChip(
-                    title: category.name,
-                    color: Color(category.colorValue),
-                  ),
+                      (category) => InkWell(
+                        onLongPress: () async {
+                          final shouldDelete = await showDialog<bool>(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              icon: const Icon(
+                                Icons.delete_outline,
+                                color:Color(0xFF4A90E2),
+                                size: 32,
+                              ),
+                              title: const Text("Delete Category"),
+                              content: Text(
+                                "Delete '${category.name}' permanently?",
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, false),
+                                  child: const Text("Cancel",style: TextStyle(color:  Color(0xFF4A90E2),),),
+                                ),
+                                FilledButton(
+                                  style: FilledButton.styleFrom(
+                                    backgroundColor: const Color(0xFF4A90E2),
+                                  ),
+                                  onPressed: () => Navigator.pop(context, true),
+                                  child: const Text("Delete"),
+                                ),
+                              ],
+                            ),
+                          );
+
+                          if (shouldDelete ?? false) {
+                            await provider.deleteCategory(category.id);
+                            showBannerOverlay(
+                              context,
+                              "Category deleted successfully",
+                              Colors.red,
+                              Icon(Icons.check_circle_outline,color: Colors.white,),
+
+                            );
+                          }
+                        },
+                        child: categoryChip(
+                          title: category.name,
+                          color: Color(category.colorValue),
+                        ),
+                      ),
                 ),
                 InkWell(
                   onTap: () {
@@ -448,8 +494,7 @@ class TaskPage extends StatelessWidget {
                                   /// ICON GRID
                                   Expanded(
                                     child: GridView.builder(
-                                      itemCount:
-                                      categoryIcons.length,
+                                      itemCount: categoryIcons.length,
 
                                       gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
@@ -504,6 +549,7 @@ class TaskPage extends StatelessWidget {
                                             provider.taskName.text.trim(),
                                             selectedIcon
                                         );
+                                        provider.taskName.clear();
 
                                         Navigator.pop(context);
                                       },

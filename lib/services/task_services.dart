@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../models/category_model.dart';
 
 class TaskServices {
+  final firestore = FirebaseFirestore.instance;
 
   Future<void> addCategory(
       String name,
@@ -12,7 +13,7 @@ class TaskServices {
       Color color,
       ) async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
-    await FirebaseFirestore.instance
+    await firestore
         .collection('users')
         .doc(uid)
         .collection('categories')
@@ -25,7 +26,7 @@ class TaskServices {
 
   Future<List<CategoryModel>> getCategories() async {
     final uid = FirebaseAuth.instance.currentUser!.uid;
-    final snapshot = await FirebaseFirestore.instance
+    final snapshot = await firestore
         .collection('users')
         .doc(uid)
         .collection('categories')
@@ -37,4 +38,19 @@ class TaskServices {
       );
     }).toList();
   }
+
+  Future<void>deleteCategory({
+    required  String id
+  })async{
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    await firestore
+        .collection('users')
+        .doc(uid)
+        .collection('categories')
+        .doc(id)
+        .delete();
+  }
+
+
+
 }

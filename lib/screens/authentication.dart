@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/Providers/Provider_auth.dart';
+import '../Providers/task_provider.dart';
 import '../widgets.dart';
 import 'dash_board_page.dart';
 import 'Reset_password.dart';
@@ -14,6 +15,7 @@ class Authentication extends StatelessWidget {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     final authProvider = context.watch<AuthProvider>();
+    final provider = context.watch<TaskProvider>();
     final isLogin = authProvider.isLogin;
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
@@ -256,6 +258,7 @@ class Authentication extends StatelessWidget {
                                   FocusScope.of(context).unfocus();
                                  bool success= await  authProvider.login(authProvider.userEmail.text, authProvider.password.text);
                                  if(success){
+                                   provider.loadCategories();
                                    Navigator.pushReplacement(
                                      context,
                                      PageRouteBuilder(

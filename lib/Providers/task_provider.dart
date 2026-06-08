@@ -11,14 +11,14 @@ class TaskProvider extends ChangeNotifier {
   final TextEditingController taskName= TextEditingController();
 
   final List<Color> categoryColors = [
-    const Color(0xFF4A90E2),
-    const Color(0xFFFF9F43),
-    const Color(0xFF00C48C),
-    const Color(0xFFFF5A5F),
-    const Color(0xFF9B59B6),
-    const Color(0xFFF1C40F),
-    const Color(0xFF1ABC9C),
-    const Color(0xFFE67E22),
+    const Color(0xFF5B8DEF), // Royal Blue
+    const Color(0xFF7C4DFF), // Deep Violet
+    const Color(0xFFFF4D8D), // Hot Pink
+    const Color(0xFFFF6B35), // Vibrant Orange
+    const Color(0xFFFFC107), // Amber
+    const Color(0xFF00C853), // Emerald Green
+    const Color(0xFF00B8D4), // Aqua
+    const Color(0xFF9C27B0), // Rich Purple
   ];
 
   List<CategoryModel> categories = [];
@@ -39,6 +39,11 @@ class TaskProvider extends ChangeNotifier {
       icon,
       randomColor,
     );
+    await loadCategories();
+  }
+
+  Future<void> deleteCategory(String id) async {
+    await taskServices.deleteCategory(id: id);
     await loadCategories();
   }
 }

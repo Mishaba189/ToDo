@@ -213,8 +213,12 @@ class HomePage extends StatelessWidget {
 
               SizedBox(height: h * 0.02),
 
-              GridView.builder(
-                itemCount: gridItems.length,
+              provider.categories.isEmpty
+                  ? const Center(
+                child: Text("No categories added"),
+              )
+                  : GridView.builder(
+                itemCount: provider.categories.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -224,62 +228,56 @@ class HomePage extends StatelessWidget {
                   childAspectRatio: 1.2,
                 ),
                 itemBuilder: (context, index) {
-                  final item = gridItems[index];
+                  final category = provider.categories[index];
+
                   return Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.03),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
                     ),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(24),
-                      onTap: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.all(18),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: item['color'].withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: Icon(
-                                item['icon'],
-                                color: item['color'],
-                                size: 30,
-                              ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Color(category.colorValue)
+                                  .withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(14),
                             ),
-
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item['title'],
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "12 Tasks",
-                                  style: TextStyle(
-                                    color: Colors.grey.shade600,
-                                  ),
-                                ),
-                              ],
+                            child: Icon(
+                              IconData(
+                                category.iconCodePoint,
+                                fontFamily: 'MaterialIcons',
+                              ),
+                              color: Color(category.colorValue),
+                              size: 30,
                             ),
-                          ],
-                        ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                category.name,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '12 Tasks',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black26
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   );

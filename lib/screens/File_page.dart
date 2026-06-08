@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/Providers/task_provider.dart';
 
 import 'Home_Page.dart';
 
@@ -47,8 +49,10 @@ class FilePage extends StatelessWidget {
       "status": "Completed",
     },
   ];
+
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<TaskProvider>();
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FB),
@@ -178,51 +182,49 @@ class FilePage extends StatelessWidget {
                     padding: const EdgeInsets.all(18),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius:
-                      BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.03),
-                          blurRadius: 10,
-                          offset:
-                          const Offset(0, 4),
+                          color: Colors.black.withOpacity(0.04),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
                         ),
                       ],
                     ),
-
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
                             color: item['color'].withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(16),),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
                           child: Icon(
                             item['icon'],
-                            size: 32,
+                            size: 30,
                             color: item['color'],
                           ),
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              item['title'],
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              item['subtitle'],
-                              style: TextStyle(
-                                color: Colors.grey.shade600,
-                              ),
-                            ),
-                          ],
+                        const SizedBox(height: 18),
+                        Text(
+                          item['title'],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          item['subtitle'],
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                            fontSize: 14,
+                          ),
                         ),
                       ],
                     ),
