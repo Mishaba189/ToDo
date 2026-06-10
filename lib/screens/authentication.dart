@@ -257,7 +257,7 @@ class Authentication extends StatelessWidget {
                                 if (isLogin) {
                                   FocusScope.of(context).unfocus();
                                  bool success= await  authProvider.login(authProvider.userEmail.text, authProvider.password.text);
-                                 if(success){
+                                 if(success) {
                                    provider.loadCategories();
                                    Navigator.pushReplacement(
                                      context,
@@ -308,7 +308,6 @@ class Authentication extends StatelessWidget {
 
                                     );
                                   }
-
                                 }
                               },
                               style: ElevatedButton.styleFrom(

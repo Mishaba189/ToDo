@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'Home_Page.dart';
 
+//give fixed height to the calendar container
+
 
 class CalendarPage extends StatelessWidget {
   CalendarPage({super.key});
