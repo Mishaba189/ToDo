@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/screens/Task_page.dart';
 import 'package:todo/screens/notification_page.dart';
-
 import '../Providers/task_provider.dart';
-import 'Calendar_page.dart';
-import 'File_page.dart';
-import 'settings_page.dart';
 
+
+//add dynamic user name in the header
+//if categories more than 4 show only 3 and forth card will be see all card
+// make good design to the no categories added also give a direct create category button
+//on tap on the category go to all tasks page  with a add task button
+// fetch today task to the home screen
+// add function to mark the task is done or not
+// fetch the no of completed tasks upon total task (filter:today)
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -15,28 +19,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     final provider = context.watch<TaskProvider>();
-    final List<Map<String, dynamic>> gridItems = [
-      {
-        'title': 'Work',
-        'icon': Icons.work_outline_rounded,
-        'color': const Color(0xFF4A90E2),
-      },
-      {
-        'title': 'Personal',
-        'icon': Icons.person_outline_rounded,
-        'color': const Color(0xFFFF9F43),
-      },
-      {
-        'title': 'Shopping',
-        'icon': Icons.shopping_bag_outlined,
-        'color': const Color(0xFF00C48C),
-      },
-      {
-        'title': 'Health',
-        'icon': Icons.favorite_border_rounded,
-        'color': const Color(0xFFFF5A5F),
-      },
-    ];
     final tasks = [
       {
         "title": "Finish Report",

@@ -6,6 +6,10 @@ import 'package:todo/Providers/Provider_auth.dart';
 import 'package:todo/Providers/task_provider.dart';
 import 'package:todo/splash.dart';
 
+//design and develop see all tasks page..navigate from home(Today task),calender(upcoming task on selected date),
+
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

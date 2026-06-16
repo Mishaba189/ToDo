@@ -38,7 +38,6 @@ class Authentication extends StatelessWidget {
           },
           child: Column(
             children: [
-
               // HEADER
               Container(
                 height: h * .30,
@@ -117,7 +116,6 @@ class Authentication extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Text(
                           isLogin ? "Login" : "Sign Up",
                           style: const TextStyle(
@@ -126,9 +124,7 @@ class Authentication extends StatelessWidget {
                             color: Color(0xFF4A90E2),
                           ),
                         ),
-
                         const SizedBox(height: 24),
-
                         // USERNAME
                         if (!isLogin) ...[
                           TextFormField(
@@ -155,7 +151,6 @@ class Authentication extends StatelessWidget {
                               ),
                             ),
                           ),
-
                           const SizedBox(height: 16),
                         ],
 

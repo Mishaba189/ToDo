@@ -52,5 +52,26 @@ class TaskServices {
   }
 
 
-
+  Future<void> addTask({
+    required String title,
+    required String description,
+    required DateTime date,
+    required String time,
+    required String categoryId,
+  }) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    await firestore
+        .collection('users')
+        .doc(uid)
+        .collection('tasks')
+        .add({
+      'title': title,
+      'description': description,
+      'date': Timestamp.fromDate(date),
+      'time': time,
+      'categoryId': categoryId,
+      'createdAt': FieldValue.serverTimestamp(),
+      'isCompleted': false,
+    });
+  }
 }

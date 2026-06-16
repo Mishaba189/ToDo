@@ -3,6 +3,8 @@ import 'package:table_calendar/table_calendar.dart';
 import 'Home_Page.dart';
 
 //give fixed height to the calendar container
+// selected date and today date highlight
+
 
 
 class CalendarPage extends StatelessWidget {
@@ -81,6 +83,7 @@ class CalendarPage extends StatelessWidget {
               ),
               SizedBox(height: h * 0.03),
               Container(
+                height: 500,
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: Colors.white,
